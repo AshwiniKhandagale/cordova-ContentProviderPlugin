@@ -2,7 +2,8 @@ function ContentProviderPlugin() {
 }
 
 var pluginMethods = [
-	"query"
+  "query",
+  "insert"
 ];
 
 pluginMethods.forEach(function (pluginMethod) {
