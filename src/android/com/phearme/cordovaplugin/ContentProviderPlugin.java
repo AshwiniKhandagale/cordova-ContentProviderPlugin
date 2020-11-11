@@ -7,6 +7,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import android.database.Cursor;
+import android.content.ContentValues;
 import android.net.Uri;
 
 public class ContentProviderPlugin extends CordovaPlugin {
@@ -52,8 +53,8 @@ public class ContentProviderPlugin extends CordovaPlugin {
 		String[] selectionArgs = null;
 		String sortOrder = null;
 		JSONArray resultJSONArray;
-		String Data;
-
+		ContentValues Data = new ContentValues();
+        
 		try {
 			if (!queryArgs.isNull("contentUri")) {
 				contentUri = Uri.parse(queryArgs.getString("contentUri"));
@@ -72,7 +73,8 @@ public class ContentProviderPlugin extends CordovaPlugin {
 
 		try {
 			if (!queryArgs.isNull("data")) {
-				Data = queryArgs.getString("data");
+				Data.put("data", queryArgs.getString("data"));
+				//Data = queryArgs.getString("data");
 			}else {
 				callback.error(WRONG_PARAMS);
 				return;
