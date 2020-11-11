@@ -94,12 +94,11 @@ public class ContentProviderPlugin extends CordovaPlugin {
 			callback.error(UNKNOWN_ERROR);
 		} else {
 			try {
-				callback.success(result);
+				
 			} finally {
 				if(result != null) result.close();
 	        }
-			
-			
+			callback.success(resultJSONArray);
 		}	
 	}
 	private void runQuery(JSONObject queryArgs, CallbackContext callback) {
