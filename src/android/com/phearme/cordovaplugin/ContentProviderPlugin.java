@@ -52,7 +52,7 @@ public class ContentProviderPlugin extends CordovaPlugin {
 		String[] selectionArgs = null;
 		String sortOrder = null;
 		JSONArray resultJSONArray;
-		JSONObject Data;
+		String Data;
 
 		try {
 			if (!queryArgs.isNull("contentUri")) {
@@ -72,7 +72,7 @@ public class ContentProviderPlugin extends CordovaPlugin {
 
 		try {
 			if (!queryArgs.isNull("data")) {
-				Data = queryArgs.getJSONObject("data");
+				Data = queryArgs.getString("data");
 			}else {
 				callback.error(WRONG_PARAMS);
 				return;
