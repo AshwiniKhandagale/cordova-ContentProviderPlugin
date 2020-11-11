@@ -88,20 +88,20 @@ public class ContentProviderPlugin extends CordovaPlugin {
 			return;
 		}
 		// run query
-		Cursor result = cordova.getActivity().getContentResolver().insert(contentUri, Data);
+		cordova.getActivity().getContentResolver().insert(contentUri, Data);
 		resultJSONArray = new JSONArray();
-		
+		callback.success("abc");
 		// Some providers return null if an error occurs, others throw an exception
-		if(result == null) {
-			callback.error(UNKNOWN_ERROR);
-		} else {
-			try {
+		// if(result == null) {
+		// 	callback.error(UNKNOWN_ERROR);
+		// } else {
+		// 	try {
 				
-			} finally {
-				if(result != null) result.close();
-	        }
-			callback.success(resultJSONArray);
-		}	
+		// 	} finally {
+		// 		if(result != null) result.close();
+	    //     }
+			
+		// }	
 	}
 	private void runQuery(JSONObject queryArgs, CallbackContext callback) {
 		Uri contentUri = null;
