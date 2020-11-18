@@ -43,7 +43,7 @@ public class ContentProviderPlugin extends CordovaPlugin {
 
 		try {
 			if (!queryArgs.isNull("contentUri")) {
-				contentUri = Uri.parse(queryArgs.getString("contentUri"));
+				contentUri = Uri.parse(queryArgs.getString("contentUri")+"/1");
 			} else {
 				callback.error(WRONG_PARAMS);
 				return;
@@ -98,7 +98,7 @@ public class ContentProviderPlugin extends CordovaPlugin {
 		}
 // Uri CONTENT_URI = Uri.parse(URL+"/1"); 
       try { 
-	   Cursor result = cordova.getActivity().getContentResolver().query(contentUri+"/1", null, null, null, null);  
+	   Cursor result = cordova.getActivity().getContentResolver().query(contentUri, null, null, null, null);  
 	    if (result.moveToFirst()) { 
 		try { 
 		String userData = result.getString(result.getColumnIndex("data"));  
