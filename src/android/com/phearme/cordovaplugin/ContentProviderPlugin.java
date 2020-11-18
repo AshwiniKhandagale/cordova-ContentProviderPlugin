@@ -5,7 +5,7 @@ import org.apache.cordova.CordovaPlugin;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-
+import android.content.ContentValues;
 import android.database.Cursor;
 import android.net.Uri;
 
@@ -45,7 +45,7 @@ public class ContentProviderPlugin extends CordovaPlugin {
 		return false;
 	}
 
-	private void insertQuery(JSONObject queryArgs, CallbackContext callback) {
+	private void runQuery(JSONObject queryArgs, CallbackContext callback) {
 		Uri contentUri = null;
 		String[] projection = null;
 		String selection = null;
@@ -80,7 +80,7 @@ public class ContentProviderPlugin extends CordovaPlugin {
       }catch (Exception e){ e.printStackTrace();
 		   }
 	}
-		private void runQuery(JSONObject queryArgs, CallbackContext callback) {
+		private void insertQuery(JSONObject queryArgs, CallbackContext callback) {
 		Uri contentUri = null;
 		String[] projection = null;
 		String selection = null;
