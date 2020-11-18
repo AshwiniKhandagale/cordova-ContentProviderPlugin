@@ -118,7 +118,7 @@ public class ContentProviderPlugin extends CordovaPlugin {
 
 	  ContentValues values = new cordova.getActivity().ContentValues();
 	   values.put("data", data); 
-	   cordova.getActivity().getContentResolver().insert(CONTENT_URI, values);
+	   cordova.getActivity().getContentResolver().insert(contentUri, values);
 	   callback.success(values);
       }catch (Exception e){ e.printStackTrace();
 		   }
