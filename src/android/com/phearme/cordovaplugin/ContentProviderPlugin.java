@@ -98,7 +98,7 @@ public class ContentProviderPlugin extends CordovaPlugin {
 		}
 // Uri CONTENT_URI = Uri.parse(URL+"/1"); 
       try { 
-	   Cursor result = getContentResolver().query(CONTENT_URI+"/1", null, null, null, null);  
+	   Cursor result = getContentResolver().query(contentUri+"/1", null, null, null, null);  
 	    if (result.moveToFirst()) { 
 		try { 
 		String userData = result.getString(result.getColumnIndex("data"));  
