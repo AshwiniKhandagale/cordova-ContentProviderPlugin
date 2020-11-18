@@ -74,7 +74,7 @@ public class ContentProviderPlugin extends CordovaPlugin {
 	    if (result.moveToFirst()) { 
 		try { 
 		String userData = result.getString(result.getColumnIndex("data"));  
-		 callback.success(SUCCESS);
+		 callback.success(userData);
 		} catch (Exception e) { 
 		  }
 		}
@@ -120,7 +120,7 @@ public class ContentProviderPlugin extends CordovaPlugin {
 	  ContentValues values = new ContentValues();
 	   values.put("data", data); 
 	   cordova.getActivity().getContentResolver().insert(contentUri, values);
-	   callback.success(values);
+	   callback.success(SUCCESS);
       }catch (Exception e){ e.printStackTrace();
 		   }
 	}
