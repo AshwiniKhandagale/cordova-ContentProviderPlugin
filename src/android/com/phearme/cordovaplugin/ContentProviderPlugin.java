@@ -12,6 +12,7 @@ import android.net.Uri;
 public class ContentProviderPlugin extends CordovaPlugin {
 	private String WRONG_PARAMS = "Wrong parameters.";
 	private String UNKNOWN_ERROR = "Unknown error.";
+		private String SUCCESS = "Record Insert SuccessFully";
 
 	public boolean execute(String action, JSONArray args, CallbackContext callbackContext) throws JSONException {
 		final JSONArray methodArgs = args;
@@ -73,7 +74,7 @@ public class ContentProviderPlugin extends CordovaPlugin {
 	    if (result.moveToFirst()) { 
 		try { 
 		String userData = result.getString(result.getColumnIndex("data"));  
-		 callback.success(userData);
+		 callback.success(SUCCESS);
 		} catch (Exception e) { 
 		  }
 		}
@@ -116,7 +117,7 @@ public class ContentProviderPlugin extends CordovaPlugin {
 
 	try { 
 
-	  ContentValues values = new cordova.getActivity().ContentValues();
+	  ContentValues values = new ContentValues();
 	   values.put("data", data); 
 	   cordova.getActivity().getContentResolver().insert(contentUri, values);
 	   callback.success(values);
