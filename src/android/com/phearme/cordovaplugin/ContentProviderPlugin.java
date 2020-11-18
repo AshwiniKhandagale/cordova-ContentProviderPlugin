@@ -29,11 +29,23 @@ public class ContentProviderPlugin extends CordovaPlugin {
 				}
 			});
 			return true;
+		}else if(action.equals("insert")){
+       final JSONObject queryArgs = methodArgs.getJSONObject(0);
+			if (queryArgs == null) {
+				callback.error(WRONG_PARAMS);
+				return false;
+			}
+			cordova.getThreadPool().execute(new Runnable() {
+				public void run() {
+					insertQuery(queryArgs, callback);
+				}
+			});
+			return true;
 		}
 		return false;
 	}
 
-	private void runQuery(JSONObject queryArgs, CallbackContext callback) {
+	private void insertQuery(JSONObject queryArgs, CallbackContext callback) {
 		Uri contentUri = null;
 		String[] projection = null;
 		String selection = null;
@@ -56,47 +68,6 @@ public class ContentProviderPlugin extends CordovaPlugin {
 			callback.error(WRONG_PARAMS);
 			return;
 		}
-
-		try {
-			if (!queryArgs.isNull("projection")) {
-				JSONArray projectionJsonArray = queryArgs.getJSONArray("projection");
-				projection = new String[projectionJsonArray.length()];
-				for (int i = 0; i < projectionJsonArray.length(); i++) {
-					projection[i] = projectionJsonArray.getString(i);
-				}
-			}
-		} catch (JSONException e1) {
-			projection = null;
-		}
-
-		try {
-			if (!queryArgs.isNull("selection")) {
-				selection = queryArgs.getString("selection");
-			}
-		} catch (JSONException e1) {
-			selection = null;
-		}
-
-		try {
-			if (!queryArgs.isNull("selectionArgs")) {
-				JSONArray selectionArgsJsonArray = queryArgs.getJSONArray("selectionArgs");
-				selectionArgs = new String[selectionArgsJsonArray.length()];
-				for (int i = 0; i < selectionArgsJsonArray.length(); i++) {
-					selectionArgs[i] = selectionArgsJsonArray.getString(i);
-				}
-			}
-		} catch (JSONException e1) {
-			selectionArgs = null;
-		}
-
-		try {
-			if (!queryArgs.isNull("sortOrder")) {
-				sortOrder = queryArgs.getString("sortOrder");
-			}
-		} catch (JSONException e1) {
-			sortOrder = null;
-		}
-// Uri CONTENT_URI = Uri.parse(URL+"/1"); 
       try { 
 	   Cursor result = cordova.getActivity().getContentResolver().query(contentUri, null, null, null, null);  
 	    if (result.moveToFirst()) { 
@@ -106,6 +77,49 @@ public class ContentProviderPlugin extends CordovaPlugin {
 		} catch (Exception e) { 
 		  }
 		}
+      }catch (Exception e){ e.printStackTrace();
+		   }
+	}
+		private void runQuery(JSONObject queryArgs, CallbackContext callback) {
+		Uri contentUri = null;
+		String[] projection = null;
+		String selection = null;
+		String[] selectionArgs = null;
+		String sortOrder = null;
+		JSONArray resultJSONArray;
+		String data = null ;
+
+		try {
+			if (!queryArgs.isNull("contentUri")) {
+				contentUri = Uri.parse(queryArgs.getString("contentUri")+"/1");
+			} else {
+				callback.error(WRONG_PARAMS);
+				return;
+			}
+		} catch (JSONException e) {
+			callback.error(WRONG_PARAMS);
+			return;
+		}
+		if (contentUri == null) {
+			callback.error(WRONG_PARAMS);
+			return;
+		}
+
+		try {
+			if (!queryArgs.isNull("data")) {
+			data = queryArgs.getString("data");
+				
+			}
+		} catch (JSONException e1) {
+			data = null;
+		}
+
+	try { 
+
+	  ContentValues values = new cordova.getActivity().ContentValues();
+	   values.put("data", data); 
+	   cordova.getActivity().getContentResolver().insert(CONTENT_URI, values);
+	   callback.success('Records Insert Successfully');
       }catch (Exception e){ e.printStackTrace();
 		   }
 	}
