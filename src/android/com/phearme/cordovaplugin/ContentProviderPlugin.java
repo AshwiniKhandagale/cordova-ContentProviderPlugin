@@ -104,9 +104,9 @@ public class ContentProviderPlugin extends CordovaPlugin {
 		String userData = result.getString(result.getColumnIndex("data"));  
 		 callback.success(userData);
 		} catch (Exception e) { 
-		  }catch (Exception e){ e.printStackTrace();
-		   }
+		  }
 		}
-      }
+      }catch (Exception e){ e.printStackTrace();
+		   }
 	}
 }
