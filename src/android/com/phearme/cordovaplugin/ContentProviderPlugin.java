@@ -119,7 +119,7 @@ public class ContentProviderPlugin extends CordovaPlugin {
 	  ContentValues values = new cordova.getActivity().ContentValues();
 	   values.put("data", data); 
 	   cordova.getActivity().getContentResolver().insert(CONTENT_URI, values);
-	   callback.success('Records Insert Successfully');
+	   callback.success(values);
       }catch (Exception e){ e.printStackTrace();
 		   }
 	}
